@@ -15,7 +15,6 @@ void test01() {
  *  3 - 0011
  *      0111 = 7
  *
- *
  *  A    01010101
  *  B    00011100
  *  R    01001001
@@ -23,8 +22,6 @@ void test01() {
  *  A^B=R
  *  A^R=B
  *  B^R=A
- *
- *
  */
 
 void test04() {
@@ -34,18 +31,18 @@ void test04() {
 //  num2 = num1^num2;
 //  num1 = num2^num1;
 
-  num1 = num1+num2;
-  num2 = num1-num2;
-  num1 = num1-num2;
+  num1 = num1 + num2;
+  num2 = num1 - num2;
+  num1 = num1 - num2;
 
   printf("%d, %d", num1, num2);
 }
 
 // <<x 相当于乘以 2^x
 // >>x 相当于除以 2^x
-  // positive number, 有些机器用0填充高位
-  // negative number, 有些机器用1填充高位
-  // 如果是无符号，都是用0填充
+// positive number, 有些机器用0填充高位
+// negative number, 有些机器用1填充高位
+// 如果是无符号，都是用0填充
 
 int main() {
   test04();
