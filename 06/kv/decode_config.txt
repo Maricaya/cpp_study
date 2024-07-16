@@ -1,0 +1,20 @@
+#英雄ID
+heroId:1
+#英雄Name
+heroName:A
+# 攻击力
+heroAtk:999999
+# 防御力
+heroDef:1000
+# 简介
+heroInfo: 无敌
+
+aaaa
+bbbbccccccc
+str:
+
+struct ConfigInfo
+{
+    char key[64];
+    char value[64];
+}
