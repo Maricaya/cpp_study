@@ -18,16 +18,9 @@ struct LinkNode *initLinkList() {
 
   // 记录尾节点的位置,方便插入新的数据
   struct LinkNode *pTail = pHeader;
-  int val = -1;
   int array[] = {1, 2, 3};
-  while (1) {
-    printf("请初始化链表，如果输入-1代表结束\n");
-    //让用户初始化几个节点，如果用户输入的是-1，代表插入结束
-    scanf("%d", &val);
-    if (val == -1) {
-      break;
-    }
-    // 如果不是-1，插入节点到链表中
+  for (int i = 0; i < sizeof(array) / sizeof(int); i++) {
+    int val = array[i];
     struct LinkNode *newNode = malloc(sizeof(struct LinkNode));
     newNode->num = val;
     newNode->next = NULL;
@@ -37,7 +30,6 @@ struct LinkNode *initLinkList() {
     // 更新新的尾节点的指向
     pTail = newNode;
   }
-
   return pHeader;
 }
 
@@ -110,16 +102,16 @@ void clear_LinkList(struct LinkNode *pHeader) {
     return;
   }
 
-  struct LinkNode * pCurrent = pHeader->next;
+  struct LinkNode *pCurrent = pHeader->next;
 
   while (pCurrent != NULL) {
     // 先保存下一个节点的位置
-    struct LinkNode * nextNode = pCurrent->next;
+    struct LinkNode *nextNode = pCurrent->next;
     free(pCurrent);
     pCurrent = nextNode;
   }
 
-  pHeader->next =NULL;
+  pHeader->next = NULL;
 }
 
 // 销毁链表
@@ -135,7 +127,7 @@ void destroy_LinkList(struct LinkNode *pHeader) {
   pHeader = NULL;
 }
 
-void insertByPos_LinkList(struct LinkNode*pHeader, int pos, int val) {
+void insertByPos_LinkList(struct LinkNode *pHeader, int pos, int val) {
   if (pHeader == NULL) {
     return;
   }
@@ -158,7 +150,7 @@ void insertByPos_LinkList(struct LinkNode*pHeader, int pos, int val) {
   pPrev->next = newNode;
 }
 
-void deleteByPos_LinkList(struct LinkNode*pHeader, int pos) {
+void deleteByPos_LinkList(struct LinkNode *pHeader, int pos) {
   if (pHeader == NULL) {
     return;
   }
@@ -176,26 +168,49 @@ void deleteByPos_LinkList(struct LinkNode*pHeader, int pos) {
   pCurrent = NULL;
 }
 
+void reverse_LinkList(struct LinkNode *pHeader) {
+  if (pHeader == NULL || pHeader->next == NULL) {
+    return;
+  }
+
+  struct LinkNode *prev = NULL;
+  struct LinkNode *pCurrent = pHeader->next;
+  struct LinkNode *next = NULL;
+
+  while (pCurrent != NULL) {
+    next = pCurrent->next;
+    pCurrent->next = prev;
+    prev = pCurrent;
+    pCurrent = next;
+  }
+  pHeader->next = prev;
+}
+
 int main() {
   struct LinkNode *pHeader = initLinkList();
 
   printf("遍历链表结果为:\n");
   foreach_LinkList(pHeader);
 
+  reverse_LinkList(pHeader);
+  printf("反转链表结果为:\n");
+  foreach_LinkList(pHeader);
+
   // insert_LinkList(pHeader, 1, 100);
-  insertByPos_LinkList(pHeader, 1, 100);
+//  insertByPos_LinkList(pHeader, 1, 100);
+//
+//  printf("插入之后遍历链表结果为:\n");
+//  foreach_LinkList(pHeader);
 
-  printf("插入之后遍历链表结果为:\n");
-  foreach_LinkList(pHeader);
+//  deleteByPos_LinkList(pHeader, 1);
+//  printf("删除之后遍历链表结果为:\n");
+//  foreach_LinkList(pHeader);
 
-  deleteByPos_LinkList(pHeader, 1);
-  printf("删除之后遍历链表结果为:\n");
-  foreach_LinkList(pHeader);
+//  insert_LinkList(pHeader, 1, 2);
 
   //清空链表
   clear_LinkList(pHeader);
   printf("清空之后遍历链表结果为:\n");
-  insert_LinkList(pHeader, 1, 2);
   foreach_LinkList(pHeader);
 
   // 销毁链表
